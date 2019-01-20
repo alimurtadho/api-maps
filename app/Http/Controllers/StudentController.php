@@ -28,7 +28,7 @@ class StudentController extends Controller
         ]);
 
         $images = 'user.jpg';
-        $images1 = 'user.jpg';
+
         $images2 = 'user.jpg';
         if($request->hasFile('photo')){
             $extension = $request->file('photo')->getClientOriginalExtension();
@@ -37,6 +37,7 @@ class StudentController extends Controller
             $request->file('photo')->move($destination,$images);
         }
 
+        $images1 = 'user.jpg';
         if($request->hasFile('photo1')){
             $extension = $request->file('photo1')->getClientOriginalExtension();
             $images1 = $request->nbi.'_photo1.'.$extension;
@@ -91,9 +92,9 @@ class StudentController extends Controller
             ]);
         }
 
-        $images = 'user.jpg';
-        $images1 = 'user.jpg';
-        $images2 = 'user.jpg';
+        // $images = 'user.jpg';
+        // $images1 = 'user.jpg';
+        // $images2 = 'user.jpg';
         if($request->hasFile('photo')){
             $extension = $request->file('photo')->getClientOriginalExtension();
             $images = $request->nbi.'_photo.'.$extension;
@@ -126,7 +127,72 @@ class StudentController extends Controller
             $destination = 'images';
             $request->file('photo2')->move($destination,$images2);
         }
-        
+
+        if($request->hasFile('photo')){
+          $student->update([
+              'nbi' => $request->nbi,
+              'name' => $request->name,
+              'place_of_birth' => $request->place_of_birth,
+              'date_of_birth' => $request->date_of_birth,
+              'phone' => $request->phone,
+              'address' => $request->address,
+              'faculty' => $request->faculty,
+              'major' => $request->major,
+              'gender' => $request->gender,
+              'hoby' => $request->hoby,
+              'nationality' => $request->nationality,
+              'tgl_masuk' => $request->tgl_masuk,
+              'tgl_keluar' => $request->tgl_keluar,
+              'dpp' => $request->dpp,
+              'photo' => $images,
+              'latitude' => $request->latitude,
+              'longitude' => $request->longitude
+          ]);
+        }
+        else if($request->hasFile('photo1')){
+          $student->update([
+              'nbi' => $request->nbi,
+              'name' => $request->name,
+              'place_of_birth' => $request->place_of_birth,
+              'date_of_birth' => $request->date_of_birth,
+              'phone' => $request->phone,
+              'address' => $request->address,
+              'faculty' => $request->faculty,
+              'major' => $request->major,
+              'gender' => $request->gender,
+              'hoby' => $request->hoby,
+              'nationality' => $request->nationality,
+              'tgl_masuk' => $request->tgl_masuk,
+              'tgl_keluar' => $request->tgl_keluar,
+              'dpp' => $request->dpp,
+              'photo1' => $images1,
+              'latitude' => $request->latitude,
+              'longitude' => $request->longitude
+          ]);
+        }
+        else if($request->hasFile('photo2')){
+          $student->update([
+              'nbi' => $request->nbi,
+              'name' => $request->name,
+              'place_of_birth' => $request->place_of_birth,
+              'date_of_birth' => $request->date_of_birth,
+              'phone' => $request->phone,
+              'address' => $request->address,
+              'faculty' => $request->faculty,
+              'major' => $request->major,
+              'gender' => $request->gender,
+              'hoby' => $request->hoby,
+              'nationality' => $request->nationality,
+              'tgl_masuk' => $request->tgl_masuk,
+              'tgl_keluar' => $request->tgl_keluar,
+              'dpp' => $request->dpp,
+              'photo2' => $images2,
+              'latitude' => $request->latitude,
+              'longitude' => $request->longitude
+          ]);
+        }
+        else
+        {
         $student->update([
             'nbi' => $request->nbi,
             'name' => $request->name,
@@ -142,12 +208,10 @@ class StudentController extends Controller
             'tgl_masuk' => $request->tgl_masuk,
             'tgl_keluar' => $request->tgl_keluar,
             'dpp' => $request->dpp,
-            'photo' => $images,
-            'photo1' => $images1,
-            'photo2' => $images2,
             'latitude' => $request->latitude,
             'longitude' => $request->longitude
         ]);
+        }
 
         return response()->json(array("status" => 'success'), 200);
     }
