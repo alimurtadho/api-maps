@@ -219,7 +219,16 @@ class StudentController extends Controller
     public function delete($id)
     {
         $student = Student::findOrFail($id);
-        Storage::delete([$student->photo, $student->photo1, $student->photo2]);
+
+        if ($student->photo != 'user.jpg') {
+          unlink('images/'.$student->photo);
+        }
+        if ($student->photo1 != 'user.jpg') {
+          unlink('images/'.$student->photo1);
+        }
+        if ($student->photo2 != 'user.jpg') {
+          unlink('images/'.$student->photo2);
+        }
         $student->delete();
         return response()->json(array("status" => 'success'), 200);
     }
